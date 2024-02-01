@@ -37,4 +37,25 @@ class DatabaseHandler(context: Context) :
         db.close()
         return success
     }
+
+    fun getAllContacts(): List<Contact>{
+        val contactList = mutableListOf<Contact>()
+        val db = this.readableDatabase
+        val selectQuery = "SELECT * FROM $TABLE_NAME"
+        val cursor = db.rawQuery(selectQuery, null)
+
+        cursor.use {
+            if(it.moveToFirst()){
+                do{
+                    val id=it.getInt(it.getColumnIndex(KEY_ID))
+                    val name = it.getString(it.getColumnIndex(KEY_NAME))
+                    val email = it.getString(it.getColumnIndex(KEY_EMAIL))
+                    val contact = Contact(id,name,email)
+                    contactList.add(contact)
+                }while(it.moveToNext())
+
+            }
+        }
+       return contactList
+    }
 }

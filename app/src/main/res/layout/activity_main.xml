@@ -33,6 +33,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guardar" />
+
+        <Button
+            android:id="@+id/consultaButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consultar BBDD" />
+
+        <TextView
+            android:id="@+id/consultaTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Resultado de su consulta:" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
