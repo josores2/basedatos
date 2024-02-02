@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/nameEditText"
@@ -28,23 +29,81 @@
             android:hint="Email: "
             android:inputType="text" />
 
+        <EditText
+            android:id="@+id/provinciaEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Provincia"
+            android:inputType="text" />
+
         <Button
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guardar" />
 
+        <EditText
+            android:id="@+id/provinciaID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Dime la provincia:"
+            android:inputType="text" />
+
         <Button
             android:id="@+id/consultaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Consultar BBDD" />
+            android:text="Consultar Todos" />
 
-        <TextView
-            android:id="@+id/consultaTextView"
+        <Button
+            android:id="@+id/provinciaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Resultado de su consulta:" />
+            android:text="Consulta por provincia" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:text="LISTA DE CONTACTOS:" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/consultaNombreTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/consultaEmailTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
