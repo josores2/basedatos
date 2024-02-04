@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var provinciaEditText: EditText
+    private lateinit var provinciaID: EditText
     private lateinit var saveButton: Button
     private lateinit var consultaButton : Button
     private lateinit var provinciaButton : Button
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.nameEditText)
         emailEditText = findViewById(R.id.emailEditText)
         provinciaEditText = findViewById((R.id.provinciaEditText))
+        provinciaID = findViewById((R.id.provinciaID))
 
         //Capturamos objetos botones y TextView
         saveButton = findViewById(R.id.saveButton)
@@ -82,35 +84,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-  /*      provinciaButton.setOnClickListener {
+        provinciaButton.setOnClickListener {
             db = DatabaseHandler(this)
-
-
-            val contactList = db.getAllContacts()
-
-            val nombresTexto = contactList.joinToString()
-            //Limpiampos el textView de la consulta
+            val prv = provinciaID.text.toString().trim()
+            val contactList = db.getProvinciaContacts(prv)
             consultaNombreTextView.text = ""
 
-            //Mostramos en el textView la Lista que ha devuelto getAllContacts()
-            //consultaTextView.text = contactList.joinToString
-
-            //Mostramos contactos en el LogCat
-            /*for (contact in contactList) {
-
-                if (contact.id == id1) {
-                    nombreIDtextView.text = contact.name
-                    emailIDtextView2.text = contact.email
-                }
-            }*/
-    //Mostramos contactos de forma ordenada, recorriendo la Lista
+            //Mostramos contactos de forma ordenada, recorriendo la Lista
             for (contact in contactList) {
-                consultaNombreTextView.append("NOMBRE: ${contact.name}\n")
-                consultaEmailTextView.append("EMAIL: ${contact.email}\n")
+                consultaNombreTextView.append("NOMBRE: ${contact.name} -- EMAIL: ${contact.email} -- PROVINCIA: ${contact.provincia}\n")
             }
-            //Podemos hacer lo mismo, pero insertando 2 textView con layout horizontal, uno para nombre y otro para correos
-
-        }*/
+        }
     }
 }
 
