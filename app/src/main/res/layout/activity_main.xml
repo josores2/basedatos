@@ -43,19 +43,17 @@
             android:layout_height="wrap_content"
             android:text="Guardar" />
 
-        <EditText
-            android:id="@+id/provinciaID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Dime la provincia:"
-            android:inputType="text" />
-
         <Button
             android:id="@+id/consultaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Consultar Todos" />
+
+        <Spinner
+            android:id="@+id/spinnerID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
 
         <Button
             android:id="@+id/provinciaButton"

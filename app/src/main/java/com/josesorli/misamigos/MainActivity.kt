@@ -4,9 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,8 +24,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var consultaButton : Button
     private lateinit var provinciaButton : Button
     private lateinit var consultaNombreTextView : TextView
+    private lateinit var spinnerId : Spinner
 
     private lateinit var db: DatabaseHandler
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +37,8 @@ class MainActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.nameEditText)
         emailEditText = findViewById(R.id.emailEditText)
         provinciaEditText = findViewById((R.id.provinciaEditText))
-        provinciaID = findViewById((R.id.provinciaID))
+        //provinciaID = findViewById((R.id.provinciaID))
+        spinnerId = findViewById(R.id.spinnerID)
 
         //Capturamos objetos botones y TextView
         saveButton = findViewById(R.id.saveButton)
@@ -86,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         provinciaButton.setOnClickListener {
             db = DatabaseHandler(this)
+            //spinnerId.get()
             val prv = provinciaID.text.toString().trim()
             val contactList = db.getProvinciaContacts(prv)
             consultaNombreTextView.text = ""

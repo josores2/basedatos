@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "290120286947",
+    "project_id": "basedatos-misamigos",
+    "storage_bucket": "basedatos-misamigos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290120286947:android:269146cfdf9b77cc4c7bd6",
+        "android_client_info": {
+          "package_name": "com.josesorli.misamigos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAataIW0dDfMSS8gia9oPbl4GJFhf-6LgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
