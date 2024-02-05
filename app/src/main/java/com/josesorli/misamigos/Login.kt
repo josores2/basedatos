@@ -43,7 +43,7 @@ class Login : AppCompatActivity() {
     fun login(view:View) {
         loginUser()
     }
-jos
+
     private fun loginUser(){
 
         val user:String = txtUser.text.toString()
