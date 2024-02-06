@@ -32,7 +32,6 @@ class Registrar : AppCompatActivity() {
         txtEmail=findViewById(R.id.txtEmail)
         txtPassword=findViewById(R.id.txtPassword)
 
-
         progressBar = findViewById(R.id.progressBar)
 
         database = FirebaseDatabase.getInstance()

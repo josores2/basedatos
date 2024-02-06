@@ -83,5 +83,49 @@ class DatabaseHandler(context: Context) :
         }
         return contactList
     }
+    fun selecProvUnica():List<String>{
+        val contactList = mutableListOf<String>()
+        val db = this.readableDatabase
+
+        val selectQuery = ("SELECT DISTINCT $KEY_PROVINCIA FROM $TABLE_NAME")
+        val cursor = db.rawQuery(selectQuery,null)
+
+        cursor.use{
+
+            if (it.moveToFirst()){
+                do{
+                    val provincia = it.getString(it.getColumnIndex(KEY_PROVINCIA))
+                    contactList.add(provincia)
+
+                }while (it.moveToNext())
+            }
+        }
+        return contactList
+
+    }
+    fun queryProvinciaContacts(provincia: String):List<Contact>{
+        val contactList = mutableListOf<Contact>()
+        val db = this.readableDatabase
+
+        val selectQuery = ("SELECT * FROM $TABLE_NAME WHERE $KEY_PROVINCIA='$provincia'")
+        val cursor = db.rawQuery(selectQuery,null)
+
+        cursor.use{
+
+            if (it.moveToFirst()){
+                do{
+                    val id = it.getInt(it.getColumnIndex(KEY_ID))
+                    val name = it.getString(it.getColumnIndex(KEY_NAME))
+                    val email = it.getString(it.getColumnIndex(KEY_EMAIL))
+                    val provincia = it.getString(it.getColumnIndex(KEY_PROVINCIA))
+                    val contact = Contact(id,name,email,provincia)
+                    contactList.add(contact)
+
+                }while (it.moveToNext())
+            }
+        }
+        return contactList
+
+    }
 
 }
