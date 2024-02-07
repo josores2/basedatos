@@ -21,12 +21,14 @@ class Registrar : AppCompatActivity() {
     private lateinit var txtEmail: EditText
     private lateinit var txtPassword: EditText
     private lateinit var progressBar: ProgressBar
+
     private lateinit var dbReference: DatabaseReference
     private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
+
         txtName=findViewById(R.id.txtName)
         txtLastName=findViewById(R.id.txtLastName)
         txtEmail=findViewById(R.id.txtEmail)
@@ -60,18 +62,17 @@ class Registrar : AppCompatActivity() {
                     val userBD = dbReference.child(user!!.uid)
                     userBD.child("Name").setValue(name)
                     userBD.child("Apellido").setValue(lastName)
+                    //Lanzamos La actividad de Login
                     action()
                 }
             }
-
         }
     }
     private fun action(){
         startActivity(Intent(this,Login::class.java))
     }
     private fun verifyEmail(user:FirebaseUser?){
-       user?.sendEmailVerification()
-           ?.addOnCompleteListener(this){
+       user?.sendEmailVerification()?.addOnCompleteListener(this){
            task->
            if(task.isComplete) {
                Toast.makeText(this, "Email enviado",Toast.LENGTH_SHORT).show()
@@ -80,6 +81,6 @@ class Registrar : AppCompatActivity() {
                Toast.makeText(this, "Error al enviar el email",Toast.LENGTH_SHORT).show()
            }
        }
-       }
-
     }
+
+}

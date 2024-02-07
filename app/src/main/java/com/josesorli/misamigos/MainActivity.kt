@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var provinciaEditText: EditText
-    private lateinit var provinciaID: EditText
+    //private lateinit var provinciaID: EditText
     private lateinit var saveButton: Button
     private lateinit var consultaButton : Button
-    private lateinit var provinciaButton : Button
+    //private lateinit var provinciaButton : Button
     private lateinit var consultaNombreTextView : TextView
     private lateinit var spinnerID : Spinner
 
@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.saveButton)
         consultaButton = findViewById(R.id.consultaButton)
         consultaNombreTextView = findViewById(R.id.consultaNombreTextView)
-
-        provinciaButton = findViewById(R.id.provinciaButton)
+        //Quitamos el botón de provincia pq esta funcionalidad ya la hace el spinner
+        //provinciaButton = findViewById(R.id.provinciaButton)
 
 
 
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             db = DatabaseHandler(this)
             val contactList = db.getAllContacts()
             consultaNombreTextView.text = ""
-            val nombresTexto = contactList.joinToString()
+            //val nombresTexto = contactList.joinToString()
             //Mostramos en el textView la Lista que ha devuelto getAllContacts()
             //consultaTextView.text = nombresTexto
 
@@ -139,8 +139,8 @@ class MainActivity : AppCompatActivity() {
                 consultaNombreTextView.append("NOMBRE: ${contact.name} -- EMAIL: ${contact.email} -- PROVINCIA: ${contact.provincia}\n")
             }
         }
-
-        provinciaButton.setOnClickListener {
+        //Quitamos el botón de provincia pq esta funcionalidad ya la hace el spinner
+        /*provinciaButton.setOnClickListener {
             db = DatabaseHandler(this)
             //spinnerId.get()
             val prv = provinciaID.text.toString().trim()
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
             for (contact in contactList) {
                 consultaNombreTextView.append("NOMBRE: ${contact.name} -- EMAIL: ${contact.email} -- PROVINCIA: ${contact.provincia}\n")
             }
-        }
+        }*/
     }
 }
 
