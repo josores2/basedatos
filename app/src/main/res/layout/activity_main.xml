@@ -55,12 +55,6 @@
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown" />
 
-        <Button
-            android:id="@+id/provinciaButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Consulta por provincia" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
