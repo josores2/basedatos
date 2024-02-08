@@ -1,5 +1,6 @@
 package com.josesorli.misamigos
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,9 +14,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
+/*import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase*/
 
 class MainActivity : AppCompatActivity() {
 
@@ -139,19 +147,8 @@ class MainActivity : AppCompatActivity() {
                 consultaNombreTextView.append("NOMBRE: ${contact.name} -- EMAIL: ${contact.email} -- PROVINCIA: ${contact.provincia}\n")
             }
         }
-        //Quitamos el botón de provincia pq esta funcionalidad ya la hace el spinner
-        /*provinciaButton.setOnClickListener {
-            db = DatabaseHandler(this)
-            //spinnerId.get()
-            val prv = provinciaID.text.toString().trim()
-            val contactList = db.getProvinciaContacts(prv)
-            consultaNombreTextView.text = ""
 
-            //Mostramos contactos de forma ordenada, recorriendo la Lista
-            for (contact in contactList) {
-                consultaNombreTextView.append("NOMBRE: ${contact.name} -- EMAIL: ${contact.email} -- PROVINCIA: ${contact.provincia}\n")
-            }
-        }*/
     }
+
 }
 
