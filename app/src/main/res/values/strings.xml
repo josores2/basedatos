@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">misAmigos</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="default_web_client_id">1:290120286947:android:269146cfdf9b77cc4c7bd6</string>
 </resources>

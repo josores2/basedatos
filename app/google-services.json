@@ -12,7 +12,12 @@
           "package_name": "com.josesorli.misamigos"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "290120286947-fpbue7i5362f1pnrfruo09m9qpreke4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAataIW0dDfMSS8gia9oPbl4GJFhf-6LgI"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290120286947-fpbue7i5362f1pnrfruo09m9qpreke4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
