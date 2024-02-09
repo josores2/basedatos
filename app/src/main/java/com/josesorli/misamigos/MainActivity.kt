@@ -25,17 +25,6 @@ import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
 
-/*import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase*/
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var nameEditText: EditText
@@ -53,9 +42,12 @@ class MainActivity : AppCompatActivity() {
     private var mAdManagerInterstitialAd: AdManagerInterstitialAd? = null
     private final var TAG = "MainActivity"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         mAdManagerInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
             override fun onAdClicked() {
