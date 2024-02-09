@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
         android:text="Iniciar sesión con Google"
-        android:drawableStart="@drawable/logog"
+        android:drawableLeft="@drawable/logog"
         android:drawablePadding="8dp"
         android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"/>

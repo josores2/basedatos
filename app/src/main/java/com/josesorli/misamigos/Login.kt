@@ -49,22 +49,23 @@ class Login : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Configure opciones de inicio de sesión de Google
+        // Configuramos opciones de inicio de sesión de Google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        // Configurar el cliente de inicio de sesión de Google
+        // Configuramos el cliente de inicio de sesión de Google
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Configurar el clic del botón de inicio de sesión con Google
+        // Configuramos el clic del botón de inicio de sesión con Google
         btn_google_login.setOnClickListener {
             signInWithGoogle()
         }
     }
 
-    //Función para llamar al login de Google
+    //Función para llamar al login de Google y que el usuario intente logearse
+    //luego veremos si se ha podido logear con pnActivityResult
     private fun signInWithGoogle() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -77,9 +78,12 @@ class Login : AppCompatActivity() {
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            //intentamos logearnos con Google, pero no manejamos la tarea, sino que capturamos
+            //la excepción. Luego vemos lo que hacemos en la siguiente funcion
             try {
                 // Autenticar con Firebase con la cuenta de Google obtenida
                 val account = task.getResult(ApiException::class.java)!!
+                //En idToken, tenemos el token que necesitamos para tratar de logearnos en Firebase.
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 // Error al iniciar sesión con Google

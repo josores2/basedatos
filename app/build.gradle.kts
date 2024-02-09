@@ -58,7 +58,12 @@ dependencies {
 
     //Agregados para Google Autentication
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+
     //Importamos las API de inicio de sesión de Google
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    //importamos dependencias de sdk de anuncios de google
+    implementation("com.google.android.gms:play-services-ads:22.6.0")
+
 
 }
