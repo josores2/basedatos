@@ -13,17 +13,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
 
-//Importamos las librerías de AdMob de Google
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.admanager.AdManagerAdRequest
-
-import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
-import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,61 +29,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var db: DatabaseHandler
 
-    private var mAdManagerInterstitialAd: AdManagerInterstitialAd? = null
-    private final var TAG = "MainActivity"
+    //Creamos el objeto publi para cargar y mostrar la publicidad en esta actividad
+    private lateinit var publi : publiHandler
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Inicializamos, controlamos el evento, cargamos y luego mostraremos la publicidad cargada
+        publi = publiHandler(this)
+        publi.inicializarPubli()
+        publi.manejarAccionPublicidad()
+        publi.cargarPublicidad()
 
-
-        mAdManagerInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
-            override fun onAdClicked() {
-                // Called when a click is recorded for an ad.
-                Log.d(TAG, "Ad was clicked.")
-            }
-
-            override fun onAdDismissedFullScreenContent() {
-                // Called when ad is dismissed.
-                Log.d(TAG, "Ad dismissed fullscreen content.")
-                mAdManagerInterstitialAd = null
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                // Called when ad fails to show.
-                Log.e(TAG, "Ad failed to show fullscreen content.")
-                mAdManagerInterstitialAd = null
-            }
-
-            override fun onAdImpression() {
-                // Called when an impression is recorded for an ad.
-                Log.d(TAG, "Ad recorded an impression.")
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                // Called when ad is shown.
-                Log.d(TAG, "Ad showed fullscreen content.")
-            }
-        }
-
-        //Inicializamos llamada a la publicidad de adMob
-        MobileAds.initialize(this) {}
-
-        var adRequest = AdManagerAdRequest.Builder().build()
-
-        AdManagerInterstitialAd.load(this,"/6499/example/interstitial", adRequest, object : AdManagerInterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError.toString())
-                mAdManagerInterstitialAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: AdManagerInterstitialAd) {
-                Log.d(TAG, "Ad was loaded.")
-                mAdManagerInterstitialAd = interstitialAd
-            }
-        })
 
         //Capturamos objetos de los EditText para guardar en BBDD
         nameEditText = findViewById(R.id.nameEditText)
@@ -109,8 +59,6 @@ class MainActivity : AppCompatActivity() {
         consultaNombreTextView = findViewById(R.id.consultaNombreTextView)
         //Quitamos el botón de provincia pq esta funcionalidad ya la hace el spinner
         //provinciaButton = findViewById(R.id.provinciaButton)
-
-
 
         db = DatabaseHandler(this)
 
@@ -140,11 +88,8 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                if (mAdManagerInterstitialAd != null) {
-                    mAdManagerInterstitialAd?.show(this@MainActivity)
-                } else {
-                    Log.d("TAG", "The interstitial ad wasn't ready yet.")
-                }
+                //Mostramos la publicidad después de desplegar el spinner
+                publi.mostrarPubli()
 
                 consultaNombreTextView.text = ""
                 val contactList = db.queryProvinciaContacts(spinnerID2)
