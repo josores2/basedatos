@@ -44,6 +44,12 @@
             android:text="Guardar" />
 
         <Button
+            android:id="@+id/consultaPrvButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consulta Prov Firebase" />
+
+        <Button
             android:id="@+id/consultaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

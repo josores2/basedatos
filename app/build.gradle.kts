@@ -51,6 +51,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation ("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.firebase:firebase-firestore:24.10.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -64,6 +65,15 @@ dependencies {
 
     //importamos dependencias de sdk de anuncios de google
     implementation("com.google.android.gms:play-services-ads:22.6.0")
+
+    // Import the BoM for the Firebase platform (learn more)
+    implementation (platform("com.google.firebase:firebase-bom:32.3.1"))
+    // Declare the KTX library instead (which automatically has a dependency on the base library)
+    implementation ("com.google.firebase:firebase-analytics-ktx")
+
+    implementation ("com.google.firebase:firebase-firestore-ktx")
+
+
 
 
 }

@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var provinciaID: EditText
     private lateinit var saveButton: Button
     private lateinit var consultaButton : Button
-    //private lateinit var provinciaButton : Button
+    private lateinit var consultaPrvButton : Button
     private lateinit var consultaNombreTextView : TextView
     private lateinit var spinnerID : Spinner
 
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     //Creamos el objeto publi para cargar y mostrar la publicidad en esta actividad
     private lateinit var publi : publiHandler
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,10 +57,16 @@ class MainActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.saveButton)
         consultaButton = findViewById(R.id.consultaButton)
         consultaNombreTextView = findViewById(R.id.consultaNombreTextView)
+        consultaPrvButton = findViewById(R.id.consultaPrvButton)
+
+        var TAG = this@MainActivity.javaClass.simpleName
         //Quitamos el botón de provincia pq esta funcionalidad ya la hace el spinner
         //provinciaButton = findViewById(R.id.provinciaButton)
 
         db = DatabaseHandler(this)
+
+        //Instancia para conectar con la BBDD de Firebase
+        val dbF = FirebaseFirestore.getInstance()
 
         var provArray = db.selecProvUnica()
         var spinnerID2:String = ""
@@ -112,6 +118,19 @@ class MainActivity : AppCompatActivity() {
             val email = emailEditText.text.toString().trim()
             val provincia = provinciaEditText.text.toString().trim()
 
+            //Inserción de la colección y los campos, clave email
+            //Si queremos ID automático, cambiamos document.set por add.
+            dbF.collection("usuarios").document(email).set(
+                hashMapOf("nombre" to name,
+                    "provincia" to provincia
+                    )
+            ).addOnSuccessListener {
+                Log.d(TAG, "Documento creado exitosamente")
+            }.addOnFailureListener { e ->
+                Log.w(TAG, "Error al crear el documento", e)
+            }
+
+
             if (name.isNotEmpty() && email.isNotEmpty() && provincia.isNotEmpty()) {
                 val id = db.addContact(name, email, provincia)
                 if (id != -1L) {
@@ -134,6 +153,7 @@ class MainActivity : AppCompatActivity() {
         consultaButton.setOnClickListener {
             db = DatabaseHandler(this)
             val contactList = db.getAllContacts()
+            val email = emailEditText.text.toString().trim()
             consultaNombreTextView.text = ""
             //val nombresTexto = contactList.joinToString()
             //Mostramos en el textView la Lista que ha devuelto getAllContacts()
@@ -143,11 +163,45 @@ class MainActivity : AppCompatActivity() {
             for (contact in contactList) {
                 Log.d("Contacto","ID: ${contact.id}, Nombre: ${contact.name}, Email: ${contact.email}")
             }*/
+
             //Mostramos contactos de forma ordenada, recorriendo la Lista
             for (contact in contactList) {
                 consultaNombreTextView.append("NOMBRE: ${contact.name} -- EMAIL: ${contact.email} -- PROVINCIA: ${contact.provincia}\n")
             }
+            if (email.isNotEmpty())
+                //Muestro en los mismos EditText, el nombre y la provincia del email que introduzca
+                dbF.collection("usuarios").document(email).get().addOnSuccessListener {
+                    nameEditText.setText(it.get("nombre") as String?)
+                    provinciaEditText.setText(it.get("provincia") as String?)
+                }
         }
+
+        consultaPrvButton.setOnClickListener {
+
+            val provincia = provinciaEditText.text.toString().trim()
+            consultaNombreTextView.text = ""
+
+
+            if (provincia.isNotEmpty()) {
+                dbF.collection("usuarios")
+                    .whereEqualTo("provincia", provincia)
+                    .get()
+                    .addOnSuccessListener { result ->
+
+                        for (document in result) {
+                            val nm = document.getString("nombre") ?: ""
+                            val em = document.id //Para consultar el ID único, en este caso, el email.
+                            val prv = document.getString("provincia") ?: ""
+                            consultaNombreTextView.append(
+                                " FB NOMBRE: $nm " +
+                                        "-- EMAIL: $em " +
+                                        "-- PROVINCIA: $prv\n"
+                            )
+                        }
+                    }
+            }
+        }
+
 
     }
 
