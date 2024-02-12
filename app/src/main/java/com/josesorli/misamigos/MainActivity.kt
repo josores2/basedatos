@@ -14,6 +14,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var consultaButton : Button
     private lateinit var consultaPrvButton : Button
+    private lateinit var deleteButton : Button
     private lateinit var consultaNombreTextView : TextView
     private lateinit var spinnerID : Spinner
 
@@ -32,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     //Creamos el objeto publi para cargar y mostrar la publicidad en esta actividad
     private lateinit var publi : publiHandler
+
+    lateinit var mAdView : AdView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         publi.inicializarPubli()
         publi.manejarAccionPublicidad()
         publi.cargarPublicidad()
+
+        //Llamamos al adView para cargar la publi del BANNER
+        mAdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
 
         //Capturamos objetos de los EditText para guardar en BBDD
@@ -58,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         consultaButton = findViewById(R.id.consultaButton)
         consultaNombreTextView = findViewById(R.id.consultaNombreTextView)
         consultaPrvButton = findViewById(R.id.consultaPrvButton)
+        deleteButton = findViewById(R.id.deleteButton)
 
         var TAG = this@MainActivity.javaClass.simpleName
         //Quitamos el botón de provincia pq esta funcionalidad ya la hace el spinner
@@ -202,8 +215,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        deleteButton.setOnClickListener {
+            val email = emailEditText.text.toString().trim()
+            dbF.collection("usuarios").document(email).delete()
+        }
 
     }
-
 }
 
