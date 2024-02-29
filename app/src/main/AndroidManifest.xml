@@ -30,9 +30,6 @@
         <!-- For apps targeting Android 13 or higher & GMA SDK version 20.3.0 or lower -->
 
         <activity
-            android:name=".ForgotPass"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
